@@ -1,0 +1,17 @@
+--Seleciona todos os campos da tabela treinamento
+SELECT * from Treinamento;
+
+--Seleciona todos os campos da tabela treinamento 
+SELECT * from Treinamento 
+--onde o campo curso começa com as palavras O poder
+WHERE curso like 'O poder%';
+
+--Seleciona todos os campos da tabela treinamento 
+SELECT * from Treinamento 
+--onde o campo curso contem com a palavra realizar
+WHERE curso like '%realizar%';
+
+--Seleciona todos os campos da tabela Colaboradores
+SELECT * from Colaboradores 
+-- onde o campo nome contem a palavra Isadora
+where nome like 'Isadora%';
