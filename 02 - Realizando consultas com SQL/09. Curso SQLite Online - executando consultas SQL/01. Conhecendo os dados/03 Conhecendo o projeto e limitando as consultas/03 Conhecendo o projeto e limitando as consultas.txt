@@ -1,0 +1,11 @@
+--Seleciona todos os campos da tabela Colaboradores
+SELECT * from Colaboradores;
+
+--Seleciona todos os campos da tabela HistoricoEmprego e orderna pelo campo salario de forma crescente
+SELECT * from HistoricoEmprego order by salario;
+
+--Seleciona todos os campos da tabela HistoricoEmprego e orderna pelo campo salario de forma decrescente
+SELECT * from HistoricoEmprego order by salario DESC;
+
+--Seleciona todos os campos da tabela HistoricoEmprego e orderna pelo campo salario de forma crescente e limita a 5 registros
+SELECT * from HistoricoEmprego order by salario DESC LIMIT 5;
