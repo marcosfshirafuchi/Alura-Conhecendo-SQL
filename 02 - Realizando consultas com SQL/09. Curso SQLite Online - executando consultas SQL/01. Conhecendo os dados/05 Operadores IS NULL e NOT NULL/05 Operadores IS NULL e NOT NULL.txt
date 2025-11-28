@@ -1,0 +1,13 @@
+--Seleciona todos os campos da tabela HisHistoricoEmprego  
+SELECT * from HistoricoEmprego 
+--onde o campo datatermino igual NULL
+WHERE datatermino isNULL 
+--e ordenado pelo salário de forma decrescente e com 5 registros
+order by salario DESC LIMIT 5;
+
+--Seleciona todos os campos da tabela HisHistoricoEmprego  
+SELECT * from HistoricoEmprego 
+--onde o campo datatermino igual NotNULL
+WHERE datatermino NOTNULL
+--e ordenado pelo salário de forma decrescente e com 5 registros
+order by salario DESC LIMIT 5;
