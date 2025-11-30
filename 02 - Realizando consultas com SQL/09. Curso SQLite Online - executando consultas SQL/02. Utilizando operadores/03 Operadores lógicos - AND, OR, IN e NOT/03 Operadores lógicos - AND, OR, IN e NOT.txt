@@ -1,0 +1,23 @@
+-- Seleciona todos os campos da tabela HistoricoEmprego
+SELECT * from HistoricoEmprego
+-- Onde o cargo igual a Professor e
+WHERE cargo = 'Professor' and 
+--esteja empregado
+datatermino NOT NULL;
+
+-- Seleciona todos os campos da tabela HistoricoEmprego
+SELECT * FROM HistoricoEmprego
+-- Onde o cargo igual a Oftalmologista ou
+WHERE cargo = 'Oftalmologista' OR
+--o cargo igual a Dermatologista
+cargo = 'Dermatologista';
+
+-- Seleciona todos os campos da tabela HistoricoEmprego
+SELECT * FROM HistoricoEmprego
+-- Onde o cargo igual a Oftalmologista, Dermatologista e Professor
+WHERE cargo IN ('Oftalmologista','Dermatologista', 'Professor');
+
+-- Seleciona todos os campos da tabela HistoricoEmprego
+SELECT * FROM HistoricoEmprego
+-- Onde o cargo  não seja igual a Oftalmologista, Dermatologista e Professor
+WHERE cargo not IN ('Oftalmologista','Dermatologista', 'Professor');
