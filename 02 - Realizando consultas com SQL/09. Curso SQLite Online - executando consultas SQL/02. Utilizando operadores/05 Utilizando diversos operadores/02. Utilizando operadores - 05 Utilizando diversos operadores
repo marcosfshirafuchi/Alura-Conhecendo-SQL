@@ -1,0 +1,6 @@
+-- Selecione todos os campos da tabela Treinamento
+SELECT * from Treinamento
+-- Onde o campo curso começa: O direito e instituicao seja igual da Rocha
+WHERE (curso like 'O direito%' and instituicao = 'da Rocha') 
+-- Ou o campo curso começa: O conforto e instituicao seja igual das Neves
+OR (curso like 'O conforto%' and instituicao = 'das Neves');
