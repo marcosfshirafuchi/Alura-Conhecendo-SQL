@@ -1,0 +1,13 @@
+-- Selecione todos os campos da tabela faturamento
+SELECT * FROM faturamento;
+
+--  Selecione mes e o faturamento bruto máximo da tabela faturamento
+SELECT mes, max(faturamento_bruto) FROM faturamento;
+
+-- Selecione mes e o faturamento bruto mínimo da tabela faturamento
+SELECT mes, min(faturamento_bruto) FROM faturamento;
+
+-- Soma numero de novos clientes e classifique o campo como Novos clientes 2023 da tabela faturamento
+SELECT sum(numero_novos_clientes) as 'Novos clientes 2023' FROM faturamento
+-- Onde o campo como terminando 2023
+WHERE mes LIKE '%2023';
