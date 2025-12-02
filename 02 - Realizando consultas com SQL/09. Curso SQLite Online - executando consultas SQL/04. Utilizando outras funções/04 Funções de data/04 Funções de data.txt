@@ -1,0 +1,12 @@
+-- Selecione todos os campos da tabela Licencas
+SELECT * from Licencas;
+
+-- Selecione os campos id_colaborador e datainicio no formato ano/mês da tabela Licencas
+SELECT id_colaborador, STRFTIME('%Y/%m', datainicio) FROM Licencas;
+
+-- Selecione os campos id_colaborador e datatermino - datacontratacao no formato juliano
+SELECT id_colaborador, JULIANDAY(datatermino) - JULIANDAY(datacontratacao)
+-- da tabela HistoricoEmprego
+from HistoricoEmprego
+-- Onde datatermino  não é nulo
+where datatermino IS NOT NULL;
