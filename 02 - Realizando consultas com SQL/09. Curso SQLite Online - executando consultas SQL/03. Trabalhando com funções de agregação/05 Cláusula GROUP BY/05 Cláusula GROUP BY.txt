@@ -1,0 +1,9 @@
+-- Selecione a coluna parentesco da tabela Dependentes
+SELECT parentesco from Dependentes
+-- agrupar por parentescos
+GROUP BY parentesco;
+
+-- Selecione a coluna parentesco e conte cada tipo de parentescos da tabela Dependentes
+SELECT parentesco, Count(*) from Dependentes
+-- agrupar por parentescos
+GROUP BY parentesco;
