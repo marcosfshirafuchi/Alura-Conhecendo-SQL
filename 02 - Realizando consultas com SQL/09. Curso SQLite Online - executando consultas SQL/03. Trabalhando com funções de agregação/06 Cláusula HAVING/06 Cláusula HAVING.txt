@@ -1,0 +1,17 @@
+-- Seleciona a instituiçao e quantidade de curso
+SELECT instituicao, COUNT(curso)
+-- da tabela Treinamento
+FROM Treinamento
+-- Agrupa por instituição
+GROUP BY instituicao
+-- Tendo mais de 2 cursos
+HAVING COUNT(curso) > 2;
+
+-- Seleciona o cargo e quantidade de quantidade de cargo
+SELECT cargo, COUNT(*) qtd 
+-- da tabela HistoricoEmprego
+from HistoricoEmprego
+-- Agrupa por cargo
+GROUP BY cargo
+-- Tendo 2 ou mais de cargos
+HAVING  qtd >= 2;
