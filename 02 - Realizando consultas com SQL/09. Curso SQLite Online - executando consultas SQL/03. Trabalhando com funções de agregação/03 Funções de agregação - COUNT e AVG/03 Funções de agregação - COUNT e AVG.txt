@@ -1,0 +1,13 @@
+-- Calcula a média das despesas da tabela faturamento
+SELECT avg(despesas) from faturamento;
+
+-- Calcula a média do lucro líquido da tabela faturamento
+SELECT avg(lucro_liquido) from faturamento;
+
+-- Conte as quantidades de pessoas que estão desempregadas da tabela HistoricoHistoricoEmprego
+SELECT COUNT(*) from HistoricoEmprego
+WHERE datatermino not NULL;
+
+-- Conte as quantidades de pessoas que tiraram férias da tabela Licencas
+SELECT COUNT(*) FROM Licencas
+WHERE tipolicenca = 'férias';
