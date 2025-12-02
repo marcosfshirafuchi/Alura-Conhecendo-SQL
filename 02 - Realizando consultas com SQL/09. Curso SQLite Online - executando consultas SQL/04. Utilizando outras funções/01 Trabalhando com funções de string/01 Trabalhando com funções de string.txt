@@ -1,0 +1,34 @@
+-- Selecione o nome o tamanho do cpf com apelido qtd
+SELECT nome, LENGTH(cpf) qtd
+-- da tabela CColaboradores
+FROM Colaboradores
+-- onde qtd = 11
+WHERE qtd = 11;
+
+-- Conte o numero de colColaboradores e o tamanho do CPF com apelido qtd
+SELECT COUNT(*), LENGTH(cpf) qtd
+-- da tabela CColaboradores
+from Colaboradores
+-- onde qtd = 11
+WHERE qtd = 11;
+
+-- Junte  a frase A pessoa colaboradora com o campo nome, junte com frase de CPF com o campo CPF e a frase possui o seguinte endereço:
+SELECT ('A pessoa colaboradora ' || nome || ' de CPF ' || cpf || ' possui o seguinte endereço: ' 
+-- com o campo endereco classificado o campo por texto
+        || endereco) AS texto
+-- da tabela Colaboradores        
+from Colaboradores;
+
+-- Coloque tudo em letras maíusculas e junte  a frase A pessoa colaboradora com o campo nome, junte com frase de CPF com o campo CPF e a frase possui o seguinte endereço:
+SELECT UPPER('A pessoa colaboradora ' || nome || ' de CPF ' || cpf || ' possui o seguinte endereço: ' 
+-- com o campo endereco classificado o campo por texto
+             || endereco) AS texto
+-- da tabela Colaboradores              
+from Colaboradores;
+
+-- Coloque tudo em letras minúscula e junte  a frase A pessoa colaboradora com o campo nome, junte com frase de CPF com o campo CPF e a frase possui o seguinte endereço:
+SELECT LOWER('A pessoa colaboradora ' || nome || ' de CPF ' || cpf || ' possui o seguinte endereço: ' 
+-- com o campo endereco classificado o campo por texto
+             || endereco) AS texto
+-- da tabela Colaboradores   
+from Colaboradores;
