@@ -1,0 +1,15 @@
+-- Seleciona o id_colaborador, cargo e salario
+SELECT id_colaborador, cargo, salario, 
+-- Criação do campo categoria_salario
+--Casos:
+CASE 
+-- Caso salario for menor 3000, classifique como Baixo 
+WHEN salario < 3000 THEN 'Baixo'
+-- Caso salario for entre 3000 e 6000, classifique como Médio 
+WHEN Salario BETWEEN 3000 AND 6000 THEN 'Médio'
+-- Caso contrário, classifique como Alto
+ELSE 'Alto'
+-- classifique o novo campo: categoria_salario
+END AS  categoria_salario
+-- da tabela HistoricoEmprego
+FROM HistoricoEmprego;
