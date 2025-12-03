@@ -1,0 +1,8 @@
+-- A função AVG da media e ROUND determina a quantidades de casas depois da vírgula
+SELECT AVG(faturamento_bruto), ROUND(AVG(faturamento_bruto),2) FROM faturamento;
+
+-- A função CEIL arredonda os numeros para o numero maior.
+SELECT CEIL(faturamento_bruto), CEIL(despesas) FROM faturamento;
+
+-- A função FLOOR arredonda os numeros para o numero menor.
+SELECT FLOOR(faturamento_bruto), FLOOR(despesas) FROM faturamento;
