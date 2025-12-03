@@ -1,0 +1,23 @@
+-- Consulta 1: Retornar a média de Notas dos Alunos em história.
+SELECT * from Disciplinas;
+SELECT avg(nota) Média from Notas where id_disciplina = 2;
+
+-- Consulta 2: Retornar as informações dos alunos cujo Nome começa com 'A'.
+SELECT * from Alunos where nome_aluno like 'A%';
+
+-- Consulta 3: Buscar apenas os alunos que fazem aniversário em fevereiro.
+SELECT * from Alunos;
+SELECT nome_aluno, STRFTIME('%m',data_nascimento) as 'Mês'  from Alunos 
+WHERE data_nascimento like '%-02-%'; 
+
+-- Consulta 4: Realizar uma consulta que calcula a idade dos Alunos.
+SELECT nome_aluno, data_nascimento, Date('now') - Date(data_nascimento) as Idade FROM Alunos; 
+
+-- Consulta 5: Retornar se o aluno está ou não aprovado. Aluno é considerado aprovado se a sua nota foi igual ou maior que 6.
+SELECT a.nome_aluno, n.nota, 
+CASE
+When nota >= 6 THEN 'Aprovado'
+ELSE
+'Reprovado'
+END AS 'Situação do Aluno'
+from Notas n, Alunos a;
