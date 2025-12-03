@@ -1,0 +1,4 @@
+-- Junte  a frase O faturamento bruto médio foi e calcule a media(AVG) do faturamento bruto formatando com duas casas decimais(ROUND) e converta em texto(Cast e AS TEXT)
+SELECT (' O faturamento bruto médio foi ' || CAST(ROUND(AVG(faturamento_bruto), 2) AS TEXT))
+-- da tabela faturamento
+FROM faturamento; 
