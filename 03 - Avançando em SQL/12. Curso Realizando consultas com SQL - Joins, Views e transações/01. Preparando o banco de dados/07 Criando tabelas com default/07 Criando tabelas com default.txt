@@ -1,0 +1,29 @@
+-- Tabela Clientes
+CREATE TABLE clientes(
+id TXT NOT NULL,
+nome VARCHAR(255),
+telefone VARCHAR(20),
+email VARCHAR(100) DEFAULT 'Sem email',
+endereco VARCHAR(255),
+PRIMARY KEY(id)  
+);
+
+-- Tabela Pedidos
+CREATE TABLE pedidos(
+id TEXT PRIMARY KEY,
+idcliente TEXT,
+datahorapedido DATETIME,
+status VARCHAR(50),
+FOREIGN KEY(idcliente) REFERENCES clientes(ID) ON DELETE CASCADE  
+);
+
+-- Tabela Itenspedidos
+CREATE TABLE itenspedidos(
+  idpedido TEXT,
+  idproduto TEXT,
+  quantidade INTEGER,
+  precounitario DECIMAL(10,2),
+  PRIMARY KEY(idpedido, idproduto),
+  FOREIGN KEY(idpedido) REFERENCES pedidos(id) ON DELETE CASCADE,
+  FOREIGN KEY(idproduto) REFERENCES produtos(id) ON DELETE CASCADE
+);
