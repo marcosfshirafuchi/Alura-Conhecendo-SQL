@@ -1,0 +1,21 @@
+-- Selecione todos os campos da tabela clientes
+SELECT * from clientes;
+
+-- Selecione todos os campos da tabela pedidos
+SELECT * from pedidos;
+
+-- Selecione o campo idcliente da tabela pedidos
+SELECT idcliente FROM pedidos 
+-- onde a datahorapedido igual 2023-01-02 08:15:00
+WHERE datahorapedido = '2023-01-02 08:15:00';
+
+-- Selecione os campos nome e telefone da tabela clientes
+SELECT nome, telefone from clientes
+-- Onde o id = subconsulta
+WHERE id = (
+  --Selecione o id do cliente
+  SELECT idcliente 
+  -- da tabela pedidos
+  FROM pedidos 
+  -- onde a datahorapedido igual 2023-01-02 08:15:00
+  WHERE datahorapedido = '2023-01-02 08:15:00');
