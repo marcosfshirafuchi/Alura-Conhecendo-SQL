@@ -1,0 +1,16 @@
+-- Selecione todos os campos da tabela colaboradores
+SELECT * from colaboradores;
+
+-- Selecione todos os campos da tabela fornecedores
+SELECT * from fornecedores;
+
+-- Selecione os campos: rua, bairro, cidade, estado e cep da tabela colaboradores
+SELECT rua, bairro, cidade, estado, cep from colaboradores;
+
+-- Selecione os campos: rua, bairro, cidade, estado e cep da tabela fornecedores
+SELECT rua, bairro, cidade, estado, cep from fornecedores;
+
+-- Uni as duas tabelas: colaboradores e fornecedores com os campos: rua, bairro, cidade, estado e cep
+SELECT rua, bairro, cidade, estado, cep from colaboradores
+UNION
+SELECT rua, bairro, cidade, estado, cep from fornecedores;
