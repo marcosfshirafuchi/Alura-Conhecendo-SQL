@@ -1,0 +1,14 @@
+-- Selecione todos os campos da tabela colaboradores onde a rua igual Rua das flores - 210
+SELECT * FROM colaboradores WHERE rua = 'Rua das flores - 210';
+
+-- Uni as duas tabelas: colaboradores e fornecedores com os campos: rua, bairro, cidade, estado e cep
+SELECT rua, bairro, cidade, estado, cep from colaboradores
+-- Union All retorna se tiver registro repetido como no caso do campo endereço
+UNION ALL
+SELECT rua, bairro, cidade, estado, cep from fornecedores;
+
+-- Uni as duas tabelas: colaboradores e fornecedores com os campos: nome, rua, bairro, cidade, estado e cep
+SELECT nome, rua, bairro, cidade, estado, cep from colaboradores
+-- Union All retorna se tiver registro repetido como no caso do campo endereço
+UNION ALL
+SELECT nome, rua, bairro, cidade, estado, cep from fornecedores;
