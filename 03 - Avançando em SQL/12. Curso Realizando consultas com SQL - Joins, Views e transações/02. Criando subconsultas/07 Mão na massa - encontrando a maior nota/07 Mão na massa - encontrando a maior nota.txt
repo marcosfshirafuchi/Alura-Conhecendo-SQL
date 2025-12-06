@@ -1,0 +1,18 @@
+-- Selecione nome
+SELECT Nome
+-- da tabela Alunos
+FROM Alunos
+-- Onde o id_aluno igual a subconsulta abaixo
+WHERE ID_aluno = (
+  -- selecione o id_aluno  
+    SELECT ID_aluno
+  -- da tabela notas
+    FROM Notas
+  -- onde o campo nota igual a subconsulta abaixo
+    WHERE Nota = (
+      -- selecione a maior nota
+        SELECT MAX(Nota)
+      -- da tabela notas
+        FROM Notas
+    )
+);
