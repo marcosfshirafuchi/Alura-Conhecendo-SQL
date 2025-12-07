@@ -1,0 +1,43 @@
+-- Selecione todos os campos da tabela produtos
+SELECT * FROM produtos;
+
+--inserte um novo registro na tabela produtos
+INSERT INTO Produtos (ID, Nome, Descricao, Preco, Categoria)VALUES 
+(31, 'Lasanha à Bolonhesa', 'Deliciosa lasanha caseira com molho bolonhesa', 12.50, 'Almoço');
+
+-- Selecione todos os campos da tabela itenspedidos
+SELECT * from itenspedidos;
+
+-- Selecione os campos: nome da tabela produtos(pr) e idproduto e idpedido da tabela itenspedidos(ip)
+SELECT pr.nome, ip.idproduto, ip.idpedido 
+-- da tabela itenspedidos
+from itenspedidos ip
+-- Neste caso(Rigth Join) vai mostrar os registrados de todos os produtos da tabela produtos que tem ou vendas na tabela itenspedidos
+RIGHT JOIN produtos pr
+-- Onde id da tabela produtos seja igual o idproduto da tabela itenspedidos
+on pr.id = ip.idproduto;
+
+-- Selecione todos os campos da tabela pedidos
+SELECT * FROM pedidos;
+
+-- Selecione os campos: nome da tabela produtos(pr) e idproduto e idpedido da subconsulta(x)
+SELECT pr.nome, x.idproduto, x.idpedido 
+-- da subsconsulta(x) 
+from (
+  -- Selecione os campos: idpedido e idproduto da tabela itenspedidos(ip)
+  SELECT ip.idpedido, ip.idproduto 
+  -- da tabela pedidos com alias/apelido p
+  from pedidos p
+  -- juntando com a tabela itenspedidos com alias/apelido ip
+  INNER join itenspedidos ip
+  -- sobre id do pedido(p) seja igual o idpedido da tabela itenspedido(ip)
+  ON p.id = ip.idpedido
+  -- onde mês do campo datahorapedido seja igual ao 10 e coloque toda subconsulta com alias/apelido x
+  WHERE strftime('%m', p.DataHoraPedido) = '10' ) x
+-- Neste caso(Rigth Join) vai mostrar os registrados de todos os produtos da tabela produtos que tem ou vendas na tabela itenspedidos
+RIGHT JOIN produtos pr
+-- sobre id da tabela produto(pr) seja igual ao idproduto da subconsulta(x)
+on pr.id = x.idproduto;
+
+
+
