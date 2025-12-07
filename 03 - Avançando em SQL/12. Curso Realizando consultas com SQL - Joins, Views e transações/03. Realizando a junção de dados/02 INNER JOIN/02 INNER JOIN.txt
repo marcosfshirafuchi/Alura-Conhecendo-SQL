@@ -1,0 +1,19 @@
+-- Selecione todos os campos da tabela clientes
+SELECT * from clientes;
+
+-- Selecione todos os campos da tabela pedidos
+SELECT * FROM pedidos;
+
+-- Selecione todos os campos da tabela clientes e coloque a letra c como alias/apelido para clientes
+SELECT * from clientes c
+-- Junte com a tabela pedidos e coloque a letra p como alias/apelido para pedidos
+INNER JOIN pedidos p
+-- onde o valor de id da tabela clientes seja igual ao valor do idcliente da tabela pedidos
+ON c.id = p.idcliente;
+
+-- Selecione os campos: nome da tabela clientes(c) e id e datahorapedido da tabela pedidos(p) e e coloque a letra c como alias/apelido para clientes
+SELECT c.nome, p.id, p.datahorapedido  from clientes c
+-- Junte com a tabela pedidos e coloque a letra p como alias/apelido para pedidos
+INNER JOIN pedidos p
+-- onde o valor de id da tabela clientes seja igual ao valor do idcliente da tabela pedidos
+ON c.id = p.idcliente;
