@@ -1,0 +1,47 @@
+-- Selecione os campos nome e telefone da tabela clientes
+SELECT nome, telefone from clientes
+-- Onde o id = subconsulta
+WHERE id = (
+  --Selecione o id do cliente
+  SELECT idcliente 
+  -- da tabela pedidos
+  FROM pedidos 
+  -- onde a datahorapedido igual 2023-01-02 08:15:00
+  WHERE datahorapedido = '2023-01-02 08:15:00');
+  
+  -- Selecione todos os campos da tabela pedidos
+  SELECT * from pedidos;
+  
+  -- Selecione todos os campos da tabela clientes
+  SELECT * from clientes;
+  
+  -- Vai retonar todos os clientes da tabela pedidos que tiveram pedido do mês 01
+  -- Selecione idcliente da tabela clientes onde o mês do campo datahorapedido igual 01
+  SELECT idcliente from pedidos where strftime ('%m',datahorapedido) = '01'
+  
+  -- Neste caso o igual(=), vai mostrar só um regisro de inumeros da tabela clientes
+  -- Selecione nome
+  SELECT nome 
+  -- da tabela clientes
+  from clientes 
+  -- Onde id igual a subconsulta abaixo:
+  WHERE id = (
+    -- Selecione o idcliente
+    SELECT idcliente 
+    -- da tabela pedidos
+    from pedidos 
+    -- onde o mês do campo datahorapedido igual 01
+    where strftime ('%m',datahorapedido) = '01');
+  
+  -- Neste caso o IN, vai mostrar só todos regisros da tabela clientes
+  -- Selecione nome 
+  SELECT nome 
+  -- da tabela clientes
+  from clientes 
+  WHERE id IN (
+    -- Selecione o idcliente
+    SELECT idcliente 
+    -- da tabela pedidos
+    from pedidos 
+    -- onde o mês do campo datahorapedido igual 01
+    where strftime ('%m',datahorapedido) = '01');  
