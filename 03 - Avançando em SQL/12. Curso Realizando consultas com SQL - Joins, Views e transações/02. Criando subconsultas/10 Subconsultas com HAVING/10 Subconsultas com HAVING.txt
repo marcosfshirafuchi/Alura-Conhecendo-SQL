@@ -1,0 +1,17 @@
+-- Selecione todos os campos da tabela produtos
+SELECT * from produtos;
+
+-- Calcule a média do campo preco da tabela produtos
+SELECT avg(preco) from produtos;
+
+-- Selecione os campos: nome e preco
+SELECT nome, preco
+-- da tabela produtos
+from produtos
+-- Agrupe por nome e preço
+GROUP BY nome, preco
+-- Tendo o preço maior média de preço da tabela produtos
+HAVING preco >(
+SELECT avg(preco) 
+  from produtos
+);
