@@ -1,0 +1,22 @@
+-- Mostra a ViewClienteTotalPedido
+SELECT * from ViewClienteTotalPedido;
+
+-- Mostra o nome da ViewClienteTotalPedido
+SELECT nome from ViewClienteTotalPedido;
+
+-- Mostra o valortotalpedido igual a 10
+SELECT * from ViewClienteTotalPedido
+WHERE valortotalpedido = 10;
+
+-- Mostra o valortotalpedido maior que 10
+SELECT * from ViewClienteTotalPedido
+WHERE valortotalpedido > 10;
+
+-- Mostra o valortotalpedido maior que 10 e menor que 14
+SELECT * from ViewClienteTotalPedido
+WHERE valortotalpedido > 10 AND valortotalpedido < 14;
+
+-- Mostra os pedidos do mês de agosto
+SELECT * from ViewClienteTotalPedido
+WHERE strftime('%m', datahorapedido) = '08';
+
