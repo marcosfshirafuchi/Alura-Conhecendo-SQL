@@ -1,0 +1,15 @@
+BEGIN TRANSACTION;
+
+SELECT * from clientes;
+
+SELECT * from pedidos;
+
+UPDATE pedidos set status = 'Concluido' WHERE status = 'Em Andamento';
+
+DELETE from clientes
+
+-- Volta para a versão anterior
+ROLLBACK;
+
+-- O commit só funciona depois colocar o BEGIN TRANSACTION em uso
+COMMIT;
