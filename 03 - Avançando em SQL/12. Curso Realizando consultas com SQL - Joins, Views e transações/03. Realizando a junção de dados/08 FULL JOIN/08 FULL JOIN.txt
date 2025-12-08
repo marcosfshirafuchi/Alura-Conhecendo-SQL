@@ -1,0 +1,19 @@
+-- Retorna clientes que não tem pedido e também pedidos que não tem cliente
+SELECT c.nome, p.id 
+from clientes c
+FULL join pedidos p
+on c.id = p.idcliente;
+
+-- Retorna pedidos que não tem cliente
+SELECT c.nome, p.id 
+from clientes c
+FULL join pedidos p
+on c.id = p.idcliente
+WHERE c.id is NULL;
+
+-- Retorna clientes que não tem pedido
+SELECT c.nome, p.id 
+from clientes c
+FULL join pedidos p
+on c.id = p.idcliente
+WHERE p.id is NULL;
