@@ -1,0 +1,25 @@
+-- Selecione todos os campos da tabela clientes
+SELECT * from clientes;
+
+-- Selecione todos os campos da tabela pedidos
+SELECT * from pedidos;
+
+-- Realize um RIGHT JOIN entre as tabelas "Clientes" e "Pedidos" para encontrar todos os clientes, incluindo aqueles que não fizeram pedidos.
+SELECT *
+FROM Pedidos p
+RIGHT JOIN clientes c
+ON c.ID = p.IDcliente;
+
+-- Filtre os resultados para encontrar os clientes que não têm pedidos (ou seja, onde o campo ID_pedido é nulo).
+SELECT *
+FROM Pedidos p
+RIGHT JOIN clientes c
+ON c.ID = p.IDcliente
+WHERE p.IDcliente IS NULL;
+
+-- Retorne o nome dos clientes que não fizeram pedidos.
+SELECT c.nome
+FROM Pedidos p
+RIGHT JOIN clientes c
+ON c.ID = p.IDcliente
+WHERE p.IDcliente IS NULL;
