@@ -1,0 +1,40 @@
+SELECT * FROM pedidos;
+
+SELECT * from itenspedidos;
+
+SELECT DATE(datahorapedido) as Dia, SUM(ip.precounitario) as FaturamentoDiario
+FROM pedidos p
+JOIN itenspedidos ip
+on p.id = ip.idpedido
+GROUP BY Dia
+ORDER BY Dia;
+
+CREATE TABLE Faturamentodiario(
+	Dia DATE,
+  	FaturamentoTotal DECIMAL(10,2)
+);
+
+INSERT INTO Faturamentodiario(Dia, faturamentototal)
+SELECT DATE(datahorapedido) as Dia, SUM(ip.precounitario) as FaturamentoDiario
+FROM pedidos p
+JOIN itenspedidos ip
+on p.id = ip.idpedido
+GROUP BY Dia
+ORDER BY Dia;
+
+SELECT * from Faturamentodiario;
+
+CREATE TRIGGER CalculaFaturamentoDiario
+AFTER INSERT ON itenspedidos
+FOR EACH Row
+BEGIN
+DELETE from Faturamentodiario;
+INSERT INTO Faturamentodiario(Dia, faturamentototal)
+SELECT DATE(datahorapedido) as Dia, SUM(ip.precounitario) as FaturamentoDiario
+FROM pedidos p
+JOIN itenspedidos ip
+on p.id = ip.idpedido
+GROUP BY Dia
+ORDER BY Dia;
+END;
+
