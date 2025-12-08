@@ -1,0 +1,43 @@
+-- Insere dados na tabela clientes
+INSERT INTO Clientes (id, Nome, Telefone, Email, Endereco)
+VALUES (28, 'João Santos', '215555678', 'joao.santos@email.com', 'Avenida Principal, 456, Cidade B'),
+       (29, 'Carla Ferreira', '315557890', 'carla.ferreira@email.com', 'Travessa das Ruas, 789, Cidade C');
+
+-- Selecione todos os campos da tabela clientes
+SELECT * from clientes;     
+
+-- Seleciona todos clientes e os pedidos mesmo os clientes que não ter feito pedido
+SELECT c.nome, p.id from clientes c
+--Mostra os registros apenas da tabela clientes
+LEFT JOIN
+pedidos p
+on c.id = p.idcliente;
+
+-- Seleciona todos nome dos clientes e os pedidos, só clientes que tem pedidos no mês 10
+SELECT c.nome, p.id from clientes c
+--Mostra os registros apenas da tabela clientes
+LEFT JOIN
+pedidos p
+on c.id = p.idcliente
+WHERE strftime('%m', p.DataHoraPedido) = '10' ;
+
+-- Seleciona o id e idcliente da tabela pedidos, só idclientes que tem pedidos no mês 10
+SELECT p.id, p.idcliente 
+from pedidos p
+WHERE strftime('%m', p.DataHoraPedido) = '10' ;
+
+-- Selecione o campo nome da tabela clientes(c) e o campo id da subconsulta(x)
+SELECT c.nome, x.id from clientes c
+--Mostra os registros apenas da tabela clientes
+LEFT JOIN
+(
+  -- Seleciona o id e idcliente da tabela pedidos, só idclientes que tem pedidos no mês 10
+	SELECT p.id, p.idcliente 
+	from pedidos p
+	WHERE strftime('%m', p.DataHoraPedido) = '10' 
+  -- Classifica a subconsulta com o valor x
+) x
+-- Sobre id da tabela clientes é igual idcliente da subconsulta
+on c.id = x.idcliente
+-- Onde  idcliente da subconsulta é nulo
+WHERE x.idcliente is NULL;
