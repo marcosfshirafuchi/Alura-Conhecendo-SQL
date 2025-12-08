@@ -1,0 +1,53 @@
+--Desafio
+--Consulta 1: Buscar o nome do professor e a turma que ele é orientador
+SELECT * from Professores;
+SELECT * from Turmas;
+
+SELECT p.nome_professor, t.nome_turma  from Professores p
+inner join Turmas t on p.ID_Professor = t.ID_Professor_Orientador;
+
+--Consulta 2: Retornar o nome e a nota do aluno que possui a melhor nota na disciplina de Matemática
+SELECT * from Alunos;
+SELECT * FROM Notas;
+SELECT * from Disciplinas; -- matemática = 1
+
+SELECT a.Nome_Aluno, Max(n.nota) as Nota_Maxima from Alunos a
+INNER join notas n on a.ID_Aluno = n.id_aluno
+INNER join  Disciplinas d on d.ID_Disciplina = n.id_disciplina
+WHERE d.id_disciplina = 1;
+
+--Consulta 3: Identificar o total de alunos por turma
+SELECT * from Turmas;
+SELECT * from Alunos;
+SELECT * from Turma_Alunos;
+
+SELECT t.nome_turma, count(ta.ID_Turma) as Total_Por_Turma from Turmas t 
+inner join  Turma_Alunos ta 
+on t.ID_Turma = ta.ID_Turma
+inner join alunos a on a.ID_Aluno = ta.ID_Aluno
+group by nome_turma;
+
+--Consulta 4: Listar os Alunos e as disciplinas em que estão matriculados
+SELECT * from Alunos;
+SELECT * from Turma_Disciplinas;
+SELECT * from Disciplinas;
+SELECT * from Turma_Alunos;
+
+SELECT a.nome_aluno, d.nome_disciplina as Disciplinas from Alunos a
+inner join Turma_Disciplinas td on td.ID_Turma = ta.ID_Turma
+inner join Turma_Alunos ta on ta.ID_Aluno = a.ID_Aluno
+INNER JOIN Disciplinas D ON D.ID_Disciplina = td.ID_Disciplina;
+
+--Consulta 5: Criar uma view que apresenta o nome, a disciplina e a nota dos alunos
+SELECT * from Alunos;
+SELECT * from Turma_Disciplinas;
+SELECT * from Disciplinas;
+SELECT * from Turma_Alunos;
+SELECT * from Notas;
+
+CREATE VIEW AlunosDisciplinaNota AS
+SELECT a.nome_aluno, d.nome_disciplina, n.nota from Alunos a
+inner JOIN Notas n on a.ID_Aluno = n.id_aluno
+inner join Disciplinas d on d.ID_Disciplina = n.ID_Disciplina;
+
+SELECT * FROM AlunosDisciplinaNota;
