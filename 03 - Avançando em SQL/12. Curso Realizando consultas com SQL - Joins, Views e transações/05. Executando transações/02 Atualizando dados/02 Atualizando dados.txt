@@ -1,0 +1,17 @@
+-- Selecione todos os campos da tabela produtos
+SELECT * from produtos;
+
+-- Validar as chaves estrangeiras
+PRAGMA foreign_keys = on;
+
+-- Mostre o produto com id igual 31
+SELECT * from produtos where id = 31;
+
+-- Atualize com o valor 13, o produto com id igual 31
+UPDATE produtos set preco = 13.0 WHERE id = 31;
+
+-- Mostre todos os produtos que comecem com o nome croissant
+SELECT * from produtos where nome like 'croissant%';
+
+-- Atualize com a nova descrição "Crossaint recheado com amêndoas.", o produto com id igual 28
+UPDATE produtos SET descricao = 'Crossaint recheado com amêndoas.' WHERE id = 28;
