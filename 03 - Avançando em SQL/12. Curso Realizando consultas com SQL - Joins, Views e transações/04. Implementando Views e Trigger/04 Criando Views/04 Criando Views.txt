@@ -1,0 +1,24 @@
+-- Mostra o id da tabela pedido, nome da tabela clientes e soma precounitario(resultado = quantidade * preco) da tabela itenspedidos
+SELECT p.id, c.nome, p.datahorapedido,SUM(ip.precounitario) as ValorTotalPedido
+FROM clientes c
+JOIN pedidos p ON c.id = p.idcliente
+JOIN itenspedidos ip on p.id = ip.idpedido
+GROUP BY p.id, c.nome;
+
+--Criação da ViewCliente
+CREATE VIEW ViewCliente as 
+SELECT nome, endereco from clientes
+
+-- Mostra a ViewCliente
+SELECT * from ViewCliente
+
+--Criação da ViewClienteTotalPedido
+CREATE VIEW ViewClienteTotalPedido as 
+SELECT p.id, c.nome, p.datahorapedido,SUM(ip.precounitario) as ValorTotalPedido
+FROM clientes c
+JOIN pedidos p ON c.id = p.idcliente
+JOIN itenspedidos ip on p.id = ip.idpedido
+GROUP BY p.id, c.nome;
+
+-- Mostra a ViewClienteTotalPedido
+SELECT * from ViewClienteTotalPedido;
