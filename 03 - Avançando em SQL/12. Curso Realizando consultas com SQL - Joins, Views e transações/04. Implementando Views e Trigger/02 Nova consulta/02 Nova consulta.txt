@@ -1,0 +1,30 @@
+-- Selecione todos os campos da tabela pedidos
+SELECT * from pedidos;
+
+-- Selecione todos os campos da tabela itenspedidos
+SELECT * from itenspedidos;
+
+-- Mostra o id da tabela pedido, quantidade e precounitario da tabela itenspedidos
+SELECT p.id, ip.quantidade, ip.precounitario
+FROM pedidos p
+JOIN itenspedidos ip
+on p.id = ip.idpedido;
+
+-- Mostra o id do pedido, quantidade, preco da tabela produto e precounitario(resultado = quantidade * preco) da tabela itenspedidos
+SELECT p.id, ip.quantidade, pr.preco, ip.precounitario
+FROM pedidos p
+JOIN itenspedidos ip on p.id = ip.idpedido
+join produtos pr on pr.id = ip.idproduto;
+
+-- Mostra o id da tabela pedido, nome da tabela clientes e precounitario(resultado = quantidade * preco) da tabela itenspedidos
+SELECT p.id, c.nome, ip.precounitario
+FROM clientes c
+JOIN pedidos p ON c.id = p.idcliente
+JOIN itenspedidos ip on p.id = ip.idpedido;
+
+-- Mostra o id da tabela pedido, nome da tabela clientes e soma precounitario(resultado = quantidade * preco) da tabela itenspedidos
+SELECT p.id, c.nome, SUM(ip.precounitario) as ValorTotalPedido
+FROM clientes c
+JOIN pedidos p ON c.id = p.idcliente
+JOIN itenspedidos ip on p.id = ip.idpedido
+GROUP BY p.id, c.nome;
