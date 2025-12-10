@@ -1,0 +1,14 @@
+-- Selecione todos os campos da tabela categorias
+SELECT * from categorias;
+
+-- Selecione todos os campos da tabela produtos
+SELECT * from produtos;
+
+-- Mostra a quantidades de produtos da tabela produtos
+SELECT COUNT(*) from produtos;
+
+-- Mostra a quantidades de vendas da tabela vendas
+SELECT COUNT(*) from vendas;
+
+-- Classifique a coluna Vendas_totais e mostra a quantidades de vendas da tabela vendas e 
+SELECT COUNT(*) as Vendas_Totais from vendas;
