@@ -1,0 +1,39 @@
+-- Porcentagem Categorias
+
+SELECT  strftime('%Y',v.data_venda) AS "Ano", c.nome_categoria as Nome_Categoria, COUNT(iv.produto_id) AS QTD_Vendas
+from itens_venda iv
+JOIN vendas v on v.id_venda = iv.venda_id
+join produtos p ON p.id_produto = iv.produto_id
+join categorias c on c.id_categoria = p.categoria_id
+-- Mostra a data venda onde o mês é igaul a 11
+WHERE strftime('%m', v.data_venda) = '11'
+-- Agrupa o nome categoria em ordem crescente e cada categoria, seu ano em ordem crescente
+GROUP BY nome_categoria, "Ano"
+-- Mostra a ordernação em ordem crescente para Ano e decrescente para Qtd_Vendas
+ORDER BY "Ano", Qtd_Vendas DESC;
+  
+SELECT c.nome_categoria as Nome_Categoria, COUNT(iv.produto_id) AS Qtd_Vendas
+from itens_venda iv
+JOIN vendas v on v.id_venda = iv.venda_id
+join produtos p ON p.id_produto = iv.produto_id
+join categorias c on c.id_categoria = p.categoria_id
+-- Agrupa o nome categoria em ordem crescente
+GROUP BY nome_categoria
+-- Mostra a ordernação em ordem decrescente para Qtd_Vendas
+ORDER BY Qtd_Vendas DESC;
+  
+SELECT COUNT(iv.produto_id) AS Qtd_Vendas
+from itens_venda iv;
+
+SELECT Nome_Categoria, Qtd_Vendas, ROUND(100.0 * Qtd_Vendas/(SELECT COUNT(*) from itens_venda),2) || '%' AS Porcentagem
+from(  
+SELECT c.nome_categoria as Nome_Categoria, COUNT(iv.produto_id) AS Qtd_Vendas
+from itens_venda iv
+JOIN vendas v on v.id_venda = iv.venda_id
+join produtos p ON p.id_produto = iv.produto_id
+join categorias c on c.id_categoria = p.categoria_id
+-- Agrupa o nome categoria em ordem crescente
+GROUP BY nome_categoria
+-- Mostra a ordernação em ordem decrescente para Qtd_Vendas
+ORDER BY Qtd_Vendas DESC
+);  
