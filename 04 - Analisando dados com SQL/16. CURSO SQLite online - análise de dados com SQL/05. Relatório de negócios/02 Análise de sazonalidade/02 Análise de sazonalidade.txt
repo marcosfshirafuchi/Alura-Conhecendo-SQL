@@ -1,0 +1,6 @@
+-- Quadro geral
+SELECT strftime('%Y/%m', data_venda) as "Ano/Mes", COUNT(*) Qtd_Vendas
+FROM vendas
+GROUP BY "Ano/Mes"
+ORDER BY "Ano/Mes";
+
