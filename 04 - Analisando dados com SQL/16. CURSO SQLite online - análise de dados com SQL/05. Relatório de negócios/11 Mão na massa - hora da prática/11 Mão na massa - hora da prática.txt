@@ -1,0 +1,229 @@
+-- Selecione todos os campos da tabela categorias
+SELECT * from categorias;
+
+-- Selecione todos os campos da tabela produtos
+SELECT * from produtos;
+
+-- Mostra a quantidades de produtos da tabela produtos
+SELECT COUNT(*) from produtos;
+
+-- Mostra a quantidades de vendas da tabela vendas
+SELECT COUNT(*) from vendas;
+
+-- Classifique a coluna Vendas_totais e mostra a quantidades de vendas da tabela vendas e 
+SELECT COUNT(*) as Vendas_Totais from vendas;
+
+-- Quadro geral
+SELECT strftime('%Y/%m', data_venda) as "Ano/Mes", COUNT(*) Qtd_Vendas
+FROM vendas
+GROUP BY "Ano/Mes"
+ORDER BY "Ano/Mes";
+
+---------------------------------------
+-- Quadro geral
+SELECT strftime('%Y/%m', data_venda) as "Ano/Mes", COUNT(*) Qtd_Vendas
+FROM vendas
+GROUP BY "Ano/Mes"
+ORDER BY "Ano/Mes";
+
+SELECT strftime('%m', data_venda) as "Mes", COUNT(*) Qtd_Vendas
+FROM vendas
+GROUP BY "Mes"
+ORDER BY "Mes";
+
+SELECT strftime('%m', data_venda) as "Mes", strftime('%Y', data_venda) AS "Ano", COUNT(*) Qtd_Vendas
+FROM vendas
+GROUP BY "Mes"
+ORDER BY "Mes";
+
+SELECT Mes,
+SUM(CASE WHEN Ano =='2020' THEN Qtd_Vendas ELSE 0 END) AS '2020',
+SUM(CASE WHEN Ano =='2021' THEN Qtd_Vendas ELSE 0 END) AS '2021',
+SUM(CASE WHEN Ano =='2022' THEN Qtd_Vendas ELSE 0 END) AS '2022',
+SUM(CASE WHEN Ano =='2023' THEN Qtd_Vendas ELSE 0 END) AS '2023'
+FROM(
+SELECT strftime('%m', data_venda) as Mes, strftime('%Y', data_venda) AS Ano, COUNT(*) Qtd_Vendas
+FROM vendas
+GROUP BY Mes, Ano
+ORDER BY Mes
+)
+GROUP by Mes
+;
+
+--------------------------
+-- Métrica
+-- Mostra o total de vendas na Black Friday entre os anos de 2020 e 2021
+SELECT COUNT(*) AS Qtd_Vendas
+from Vendas v
+WHERE strftime('%m', v.data_venda) = '11' AND strftime('%Y', v.data_venda) != '2022';
+
+
+-- Mostra a quantidade de vendas na Black Friday nos anos de 2020 e 2021
+SELECT COUNT(*) AS Qtd_Vendas, strftime('%Y', v.data_venda) as Ano
+from Vendas v
+WHERE strftime('%m', v.data_venda) = '11' AND Ano != '2022'
+GROUP BY Ano;
+
+SELECT AVG(Qtd_Vendas) AS Media_Qtd_Vendas
+FROM(
+-- Mostra a quantidade de vendas na Black Friday nos anos de 2020 e 2021
+SELECT COUNT(*) AS Qtd_Vendas, strftime('%Y', v.data_venda) as Ano
+from Vendas v
+WHERE strftime('%m', v.data_venda) = '11' AND Ano != '2022'
+GROUP BY Ano
+)  ;
+
+
+SELECT COUNT(*) AS Qtd_Vendas
+from Vendas v
+WHERE strftime('%m', v.data_venda) = '11' AND strftime('%Y', v.data_venda) = '2022';
+
+SELECT Qtd_Vendas as Vendas_Qtd_Atual
+from(
+SELECT COUNT(*) AS Qtd_Vendas
+from Vendas v
+WHERE strftime('%m', v.data_venda) = '11' AND strftime('%Y', v.data_venda) = '2022'
+)  ;
+
+
+With Media_Vendas_Anteriores AS (SELECT AVG(Qtd_Vendas) AS Media_Qtd_Vendas
+FROM(
+-- Mostra a quantidade de vendas na Black Friday nos anos de 2020 e 2021
+SELECT COUNT(*) AS Qtd_Vendas, strftime('%Y', v.data_venda) as Ano
+from Vendas v
+WHERE strftime('%m', v.data_venda) = '11' AND Ano != '2022'
+GROUP BY Ano
+) ), Vendas_Atual AS (SELECT Qtd_Vendas as Qtd_Vendas_Atual
+from(
+SELECT COUNT(*) AS Qtd_Vendas
+from Vendas v
+WHERE strftime('%m', v.data_venda) = '11' AND strftime('%Y', v.data_venda) = '2022'
+))
+SELECT mva.Media_Qtd_Vendas,
+va.Qtd_Vendas_Atual,
+  ROUND((va.Qtd_Vendas_Atual - mva.Media_Qtd_Vendas)/mva.Media_Qtd_Vendas * 100.0, 2) || '%' AS Porcentagem
+FROM Vendas_Atual va, Media_Vendas_Anteriores mva;
+
+-------------------------------
+
+-- 01 - Qual é o número de Clientes que existem na base de dados ?
+select Count(*) AS Qtd_Clientes from clientes;
+
+-- 02 - Quantos produtos foram vendidos no ano de 2022 ?
+SELECT Count(*) AS Qtd_Produtos_Vendidos FROM vendas v
+JOIN itens_venda iv on iv.venda_id = v.id_venda
+WHERE strftime('%Y',v.data_venda) = '2022';
+
+-- 03 - Qual a categoria que mais vendeu em 2022 ?
+SELECT c.nome_categoria as Categoria, COUNT(*) as Categoria_Mais_Vendida from categorias c
+inner join produtos p on p.categoria_id = c.id_categoria
+INNER join itens_venda iv on iv.produto_id = p.id_produto
+inner join vendas v on v.id_venda = iv.venda_id
+WHERE strftime('%Y',v.data_venda) = '2022' 
+GROUP BY Categoria 
+ORDER BY Categoria_Mais_Vendida DESC limit 1
+
+-- 04 - Qual o primeiro ano disponível na base ?
+SELECT MIN(strftime('%Y',data_venda)) AS Ano from vendas;
+
+-- 05 - Qual o nome do fornecedor que mais vendeu no primeiro ano disponível na base ?
+SELECT f.nome as Fornecedor, COUNT(*) as Total_venda from fornecedores f
+join produtos p on p.fornecedor_id = f.id_fornecedor
+join itens_venda iv on iv.produto_id = p.id_produto
+join vendas v on v.id_venda = iv.venda_id
+WHERE strftime('%Y',v.data_venda) = '2020'
+GROUP by Fornecedor
+ORDER by COUNT(*) DESC
+limit 1
+
+-- 06 - Quanto ele vendeu no primeiro ano disponível na base de dados ?
+SELECT f.nome as Fornecedor, COUNT(*) as Qtd_Vendas, strftime('%Y',v.data_venda) as Ano from fornecedores f
+join produtos p on p.fornecedor_id = f.id_fornecedor
+join itens_venda iv on iv.produto_id = p.id_produto
+join vendas v on v.id_venda = iv.venda_id
+WHERE Ano = '2020'
+GROUP by Fornecedor
+ORDER by COUNT(*) DESC
+LIMIT 1;
+
+-- 07 - Quais as duas categorias que mais venderam no total de todos os anos ?
+SELECT c.nome_categoria as Categoria, COUNT(*) AS Qtd_Vendas 
+FROM itens_venda iv
+JOIN vendas v ON v.id_venda = iv.venda_id
+JOIN PRODUTOS p ON p.id_produto = iv.produto_id
+JOIN CATEGORIAS c ON c.id_categoria = p.categoria_id
+GROUP BY Categoria
+ORDER BY COUNT(*) DESC
+LIMIT 2;
+
+-- 08 - Crie uma tabela comparando as vendas ao longo do tempo das duas categorias que mais venderam no total de todos os anos.
+SELECT "Ano/Mês",
+SUM(CASE WHEN Categoria=='Eletrônicos' THEN Qtd_Vendas ELSE 0 END) AS Eletrônicos,
+SUM(CASE WHEN Categoria=='Vestuário' THEN Qtd_Vendas ELSE 0 END) AS Vestuário
+FROM(
+    SELECT COUNT(*) AS Qtd_Vendas, strftime('%Y/%m', v.data_venda) AS "Ano/Mês", c.nome_categoria AS Categoria
+    FROM itens_venda iv
+    JOIN vendas v ON v.id_venda = iv.venda_id
+    JOIN PRODUTOS p ON p.id_produto = iv.produto_id
+    JOIN CATEGORIAS c ON c.id_categoria = p.categoria_id
+    WHERE Categoria IN ('Eletrônicos', 'Vestuário')
+    GROUP BY "Ano/Mês", Categoria
+    ORDER BY "Ano/Mês", Categoria
+)
+GROUP BY "Ano/Mês"
+;
+
+-- 09 - Calcule a porcentagem de vendas por categorias no ano de 2022.
+WITH Total_Vendas AS (
+SELECT COUNT(*) as Total_Vendas_2022
+From itens_venda iv
+JOIN vendas v ON v.id_venda = iv.venda_id
+WHERE strftime('%Y', v.data_venda) = '2022'
+)
+SELECT Nome_Categoria, Qtd_Vendas, ROUND(100.0*Qtd_Vendas/tv.Total_Vendas_2022, 2) || '%' AS Porcentagem
+FROM(
+  SELECT c.nome_categoria AS Nome_Categoria, COUNT(iv.produto_id) AS Qtd_Vendas
+  from itens_venda iv
+  JOIN vendas v ON v.id_venda = iv.venda_id
+  JOIN produtos p ON p.id_produto = iv.produto_id
+  JOIN categorias c ON c.id_categoria = p.categoria_id
+  WHERE strftime('%Y', v.data_venda) = '2022'
+  GROUP BY Nome_Categoria
+  ORDER BY Qtd_Vendas DESC
+  ), Total_Vendas tv
+;
+
+-- 10 - Crie uma métrica mostrando a porcentagem de vendas a mais que a melhor categoria tem em relação a pior no ano de 2022.
+WITH Total_Vendas AS (
+  SELECT COUNT(*) as Total_Vendas_2022
+  FROM itens_venda iv
+  JOIN vendas v ON v.id_venda = iv.venda_id
+  WHERE strftime('%Y', v.data_venda) = '2022'
+),
+Vendas_Por_Categoria AS (
+  SELECT 
+    c.nome_categoria AS Nome_Categoria, 
+    COUNT(iv.produto_id) AS Qtd_Vendas
+  FROM itens_venda iv
+  JOIN vendas v ON v.id_venda = iv.venda_id
+  JOIN produtos p ON p.id_produto = iv.produto_id
+  JOIN categorias c ON c.id_categoria = p.categoria_id
+  WHERE strftime('%Y', v.data_venda) = '2022'
+  GROUP BY Nome_Categoria
+),
+Melhor_Pior_Categorias AS (
+  SELECT 
+    MIN(Qtd_Vendas) AS Pior_Vendas, 
+    MAX(Qtd_Vendas) AS Melhor_Vendas
+  FROM Vendas_Por_Categoria
+)
+-- O CROSS JOIN é utilizado aqui para combinar todas as linhas de Total_Vendas, 
+-- Vendas_Por_Categoria e Melhor_Pior_Categorias, resultando em um único conjunto de dados.
+SELECT 
+  Nome_Categoria, 
+  Qtd_Vendas, 
+  ROUND(100.0*Qtd_Vendas/tv.Total_Vendas_2022, 2) || '%' AS Porcentagem,
+  ROUND(100.0*(Qtd_Vendas - Melhor_Vendas) / Melhor_Vendas, 2) || '%' AS Porcentagem_Mais_Que_Melhor
+FROM Vendas_Por_Categoria
+CROSS JOIN Total_Vendas tv
+CROSS JOIN Melhor_Pior_Categorias;
